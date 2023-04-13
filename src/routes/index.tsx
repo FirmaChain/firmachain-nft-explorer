@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Home } from '../pages';
+import { Home, Nft } from '../pages';
 
 const routePublic = (path: string, component: React.FC) => ({
   path,
@@ -11,6 +11,7 @@ const routePublic = (path: string, component: React.FC) => ({
 
 const routes = {
   Home: routePublic('/', Home),
+  Nft: routePublic('/nft/:dappId/:nftId', Nft),
 };
 
 const PrivateRoute = ({ children }: any) => {
