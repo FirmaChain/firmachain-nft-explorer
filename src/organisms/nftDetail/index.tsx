@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Slider from 'react-slick';
 import { useMediaQuery } from 'react-responsive';
 import { useSnackbar } from 'notistack';
@@ -75,6 +75,8 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
   const { nftData } = useGetNftData(dappId, nftId);
   const { targetNftList } = useLatestNftInfoByCollection({ currentCollection: dappId });
 
+  const [isDragging, setIsDragging] = useState(false);
+
   const isSmall = useMediaQuery({ query: '(max-width: 1200px)' });
   const isTiny = useMediaQuery({ query: '(max-width: 800px)' });
   const isMicro = useMediaQuery({ query: '(max-width: 500px)' });
@@ -104,6 +106,21 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
       autoHideDuration: 2000,
     });
   };
+
+  const handleMouseDown = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = () => {
+    setIsDragging(true);
+  };
+
+  const handleMouseUp = (targetNft: any) => {
+    if (isDragging === false) {
+      onClickNft(targetNft);
+    }
+  };
+
   return (
     <ContentWrapper>
       <TopWrapper>
@@ -234,6 +251,7 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                 slidesToScroll={5}
                 speed={700}
                 variableWidth={true}
+                onSwipe={() => {}}
                 responsive={[
                   {
                     breakpoint: 1024,
@@ -265,7 +283,12 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
               >
                 {targetNftList.map((targetNft, index) => {
                   return (
-                    <NftCardItem key={index} onClick={() => onClickNft(targetNft)}>
+                    <NftCardItem
+                      key={index}
+                      onMouseDown={handleMouseDown}
+                      onMouseMove={handleMouseMove}
+                      onMouseUp={() => handleMouseUp(targetNft)}
+                    >
                       <NftCardImage src={targetNft.details?.imageURI} />
                       <NftInfoWrapper>
                         <NftCardTopWrapper>

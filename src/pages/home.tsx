@@ -1,14 +1,14 @@
 import React from 'react';
 
 import Collection from '../organisms/collection';
-import Banner from '../organisms/banner';
+// import Banner from '../organisms/banner';
 
 import { ContentWrapper } from '../styles/home';
 
 const Home = () => {
   return (
     <ContentWrapper>
-      <Banner />
+      {/* <Banner /> */}
       <Collection />
     </ContentWrapper>
   );
