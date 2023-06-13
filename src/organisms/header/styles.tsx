@@ -27,6 +27,8 @@ export const LogoImg = styled.div`
   width: 19.7rem;
   height: 3.8rem;
   background-image: url('${({ theme }) => theme.urls.nftLogo}');
+  background-size: contain;
+  background-repeat: no-repeat;
   cursor: pointer;
 `;
 

@@ -2,24 +2,30 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 
+import Header from '../organisms/header';
+import Footer from '../organisms/footer';
 import BackArrowButton from '../components/backArrowButton';
 import NftDetail from '../organisms/nftDetail';
 
-import { ContentWrapper, ContentContainer, TopMenu } from '../styles/nft';
+import { MainContainer, ContentWrapper, ContentContainer, TopMenu } from '../styles/nft';
 
 const Nft = () => {
   const { dappId, nftId } = useParams();
   const navigate = useNavigate();
 
   return (
-    <ContentWrapper>
-      <ContentContainer>
-        <TopMenu>
-          <BackArrowButton onClick={() => navigate('/')} />
-        </TopMenu>
-        <NftDetail dappId={dappId} nftId={nftId} />
-      </ContentContainer>
-    </ContentWrapper>
+    <MainContainer>
+      <Header />
+      <ContentWrapper>
+        <ContentContainer>
+          <TopMenu>
+            <BackArrowButton onClick={() => navigate('/')} />
+          </TopMenu>
+          <NftDetail dappId={dappId} nftId={nftId} />
+        </ContentContainer>
+      </ContentWrapper>
+      <Footer />
+    </MainContainer>
   );
 };
 

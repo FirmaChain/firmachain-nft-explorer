@@ -1,16 +1,21 @@
 import React from 'react';
 
 import Collection from '../organisms/collection';
-// import Banner from '../organisms/banner';
+import Header from '../organisms/header';
+import Footer from '../organisms/footer';
 
-import { ContentWrapper } from '../styles/home';
+import { MainContainer, ContentWrapper } from '../styles/home';
 
 const Home = () => {
   return (
-    <ContentWrapper>
-      {/* <Banner /> */}
-      <Collection />
-    </ContentWrapper>
+    <MainContainer>
+      <Header />
+      <ContentWrapper>
+        {/* <Banner /> */}
+        <Collection />
+      </ContentWrapper>
+      <Footer />
+    </MainContainer>
   );
 };
 

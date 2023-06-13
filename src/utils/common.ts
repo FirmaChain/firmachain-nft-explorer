@@ -54,3 +54,47 @@ export const copyToClipboard = (textToCopy: string) => {
     }
   } catch (e) {}
 };
+
+export const createTextEllipsisForEnd = (value: string, endPoint: number) => {
+  let length = value.length;
+  if (length > endPoint) return value.substring(0, endPoint) + '...';
+  return value;
+};
+
+export const wait = (timeout: number) => {
+  return new Promise((resolve) => setTimeout(resolve, timeout));
+};
+
+export const shuffleArray = (array: Array<any>) => {
+  for (var i = array.length - 1; i > 0; i--) {
+    var j = Math.floor(Math.random() * (i + 1));
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
+  }
+  return array;
+};
+
+export const convertTime = (time: string) => {
+  if (time === undefined) return '';
+
+  const date = getLocalDate(time);
+  const GMT = getGMT();
+
+  return moment(new Date(date)).format('YYYY-MM-DD HH:mm:ss') + ` (${GMT})`;
+};
+
+export const getGMT = () => {
+  let date = new Date();
+  const offset = date.getTimezoneOffset();
+  const GMT = offset / 60 < 0 ? '+' + Math.abs(offset / 60) : (offset / 60) * -1;
+
+  return 'GMT' + GMT;
+};
+
+export const getLocalDate = (time: string) => {
+  let date = new Date(time);
+  const offset = date.getTimezoneOffset();
+  date.setHours(date.getHours() - offset / 560);
+  return date;
+};

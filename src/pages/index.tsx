@@ -1,4 +1,5 @@
 import Home from './home';
 import Nft from './nft';
+import Gallery from './gallery';
 
-export { Home, Nft };
+export { Home, Nft, Gallery };

@@ -13,7 +13,7 @@ const urls = {
   logo: process.env.PUBLIC_URL + '/images/white_logo.svg',
   bgLogo: process.env.PUBLIC_URL + '/images/bgLogo.png',
   fullLogo: process.env.PUBLIC_URL + '/images/firma_chain_title.svg',
-  nftLogo: process.env.PUBLIC_URL + '/images/firma_nft_logo.svg',
+  nftLogo: process.env.PUBLIC_URL + '/images/firma_nft_logo.png',
   footerNftLogo: process.env.PUBLIC_URL + '/images/firma_nft_footer_logo.svg',
   link: process.env.PUBLIC_URL + '/images/ic_link.png',
   linkTx: process.env.PUBLIC_URL + '/images/ic_link_tx.png',
@@ -27,6 +27,10 @@ const urls = {
   reportBox: process.env.PUBLIC_URL + '/images/ic_report_box.png',
   firmaCircle: process.env.PUBLIC_URL + '/images/ic_firma_circle.png',
   profileIcon: process.env.PUBLIC_URL + '/images/ic_profile.png',
+  newLabel: process.env.PUBLIC_URL + '/images/tag-2.png',
+  profileIcon2: process.env.PUBLIC_URL + '/images/ic-profile-fill-24-px.png',
+  featuredLabel: process.env.PUBLIC_URL + '/images/img-featured-badge.png',
+  galleryLogo: process.env.PUBLIC_URL + '/images/logo-firma-gallery.png',
 };
 
 const theme = {
