@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
 
-import { Home, Nft, Gallery } from '../pages';
+import { Home, Nft, Gallery, Feeds } from '../pages';
 
 const routePublic = (path: string, component: React.FC) => ({
   path,
@@ -12,6 +12,7 @@ const routePublic = (path: string, component: React.FC) => ({
 const routes = {
   Home: routePublic('/', Home),
   Gallery: routePublic('/gallery', Gallery),
+  Feeds: routePublic('/feeds', Feeds),
   Nft: routePublic('/nft/:dappId/:nftId', Nft),
 };
 
