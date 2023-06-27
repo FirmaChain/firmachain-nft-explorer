@@ -40,9 +40,6 @@ export const LinkWrapper = styled.div`
   justify-content: center;
   align-items: center;
   gap: 2rem;
-  @media only screen and (max-width: 35rem) {
-    display: none;
-  }
 `;
 
 export const LinkItem = styled.div`
