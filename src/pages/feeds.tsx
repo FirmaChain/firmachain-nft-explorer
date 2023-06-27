@@ -1,14 +1,23 @@
-import React, { useEffect, useState } from 'react';
+import React, { useDeferredValue, useEffect, useState } from 'react';
 
 import { MainContainer, ContentWrapper } from '../styles/feeds';
 import { useLatestNftInfo } from '../organisms/collection/hooks';
-import Header from '../organisms/header';
+
 import FeedList from '../organisms/feedList';
+import FeedHeader from '../organisms/feedHeader';
 
 const Feeds = () => {
   const currentCollection = 'all';
   const [currentPage, setPage] = useState(0);
-  const { targetNftList } = useLatestNftInfo({ currentCollection, currentPage });
+  const [searchId, setSearchId] = useState('');
+  const deferredSearchId = useDeferredValue(searchId);
+
+  const { targetNftList, searchNftList } = useLatestNftInfo({
+    currentCollection,
+    currentPage,
+    deferredSearchId,
+    term: 10,
+  });
 
   useEffect(() => {
     const checkScrollPosition = () => {
@@ -31,7 +40,7 @@ const Feeds = () => {
   }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const moreAction = () => {
-    setPage(currentPage + 1);
+    if (searchNftList.length === 0) setPage(currentPage + 1);
   };
 
   useEffect(() => {
@@ -40,9 +49,13 @@ const Feeds = () => {
 
   return (
     <MainContainer>
-      <Header />
+      <FeedHeader searchId={searchId} setSearchId={setSearchId} />
       <ContentWrapper>
-        <FeedList targetNftList={targetNftList} />
+        {searchId !== '' && searchNftList.length === 0 ? (
+          <></>
+        ) : (
+          <FeedList targetNftList={searchNftList.length > 0 ? searchNftList : targetNftList} />
+        )}
       </ContentWrapper>
     </MainContainer>
   );

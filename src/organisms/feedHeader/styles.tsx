@@ -34,31 +34,3 @@ export const LogoImg = styled.div`
   background-position: center center;
   cursor: pointer;
 `;
-
-export const LinkWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 2rem;
-  @media only screen and (max-width: 35rem) {
-    display: none;
-  }
-`;
-
-export const LinkItem = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-`;
-
-export const LinkName = styled.div`
-  font-size: 1.6rem;
-  color: ${({ theme }) => theme.colors.topLink};
-`;
-
-export const LinkIcon = styled.div`
-  width: 2.4rem;
-  height: 2.4rem;
-  background-image: url('${({ theme }) => theme.urls.link}');
-`;

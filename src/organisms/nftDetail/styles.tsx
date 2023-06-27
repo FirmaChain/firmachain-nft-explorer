@@ -4,6 +4,7 @@ import { Metropolis } from '../../styles/globalFont';
 
 export const ContentWrapper = styled.div`
   width: 100%;
+  flex: 1;
   padding: 0;
   display: flex;
   flex-direction: column;
@@ -193,7 +194,6 @@ export const NftOptionalInfo = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  padding-bottom: 5rem;
 `;
 
 export const OptionalWrapper = styled.div`
@@ -202,6 +202,7 @@ export const OptionalWrapper = styled.div`
   flex-direction: column;
   margin: 6rem 0 2rem 0;
 `;
+
 export const OptinalLabel = styled.div`
   font-size: 2.8rem;
   font-weight: bold;
@@ -249,6 +250,8 @@ export const PropertyDescription = styled.div`
 
 export const NftList = styled.div`
   width: 100%;
+  height: 35rem;
+  overflow: hidden;
   & > div {
     height: 32rem !important;
   }

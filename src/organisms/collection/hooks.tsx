@@ -105,13 +105,16 @@ export const useLatestNftInfo = ({
   currentCollection,
   currentPage,
   term = 16,
+  deferredSearchId = '',
 }: {
   currentCollection: string;
   currentPage: number;
   term?: number;
+  deferredSearchId?: string;
 }) => {
   const [nftByCollection, setNftByCollection] = useState<ICollectionData>({ all: [] });
   const [targetNftList, setTargetNftList] = useState<INftData[]>([]);
+  const [searchNftList, setSearchNftList] = useState<INftData[]>([]);
 
   const getNftDetail = async (targetArray: INftData[]): Promise<void> => {
     for (let i = term * currentPage; i < targetArray.length; i++) {
@@ -134,6 +137,38 @@ export const useLatestNftInfo = ({
               targetArray[i].details.owner = nftData.owner;
 
               setTargetNftList((targetnft) => [...targetnft]);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    }
+  };
+
+  const getSearchNftDetail = async (targetArray: INftData[]): Promise<void> => {
+    for (let i = 0; i < targetArray.length; i++) {
+      firmaSDK.Nft.getNftItem(targetArray[i].nftId)
+        .then((nftData: { owner: string; id: string; tokenURI: string }) => {
+          axios
+            .get(nftData.tokenURI)
+            .then((response) => {
+              const tokenData: {
+                name: string;
+                description: string;
+                identity: string;
+                imageURI: string;
+                metaURI: string;
+              } = response.data;
+
+              targetArray[i].details.name = tokenData.name;
+              targetArray[i].details.description = tokenData.description;
+              targetArray[i].details.imageURI = tokenData.imageURI;
+              targetArray[i].details.owner = nftData.owner;
+
+              setSearchNftList((targetnft) => [...targetnft]);
             })
             .catch((error) => {
               console.log(error);
@@ -171,6 +206,30 @@ export const useLatestNftInfo = ({
     return targetArray;
   };
 
+  const getSearchArray = (nftByCollection: INft[]): INftData[] => {
+    const targetCollection = nftByCollection;
+
+    let targetArray = [];
+    for (let i = 0; i < targetCollection.length; i++) {
+      targetArray.push({
+        nftId: targetCollection[i].nftId,
+        dappId: targetCollection[i].dappId,
+        metadata: null,
+        details: {
+          name: '',
+          description: '',
+          imageURI: '',
+          owner: '',
+          transactionHash: targetCollection[i].transactionHash,
+          createdBy: targetCollection[i].createdBy,
+          createdAt: targetCollection[i].createdAt,
+        },
+      });
+    }
+
+    return targetArray;
+  };
+
   useEffect(() => {
     getNftIdByCollection().then((result) => {
       setNftByCollection(result);
@@ -193,8 +252,23 @@ export const useLatestNftInfo = ({
       .catch((error) => console.log(error));
   }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
+  useEffect(() => {
+    if (deferredSearchId !== '') {
+      const searchNftList = nftByCollection[COLLECTION_LIST[0].dappId].filter((nft) => nft.nftId === deferredSearchId);
+      const searchArray = getSearchArray(searchNftList);
+
+      setSearchNftList(searchArray);
+      getSearchNftDetail(searchArray)
+        .then(() => {})
+        .catch((error) => console.log(error));
+    } else {
+      setSearchNftList([]);
+    }
+  }, [deferredSearchId]); // eslint-disable-line react-hooks/exhaustive-deps
+
   return {
     nftByCollection,
     targetNftList,
+    searchNftList,
   };
 };

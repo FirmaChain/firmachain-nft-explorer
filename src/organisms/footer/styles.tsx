@@ -7,6 +7,10 @@ export const FooterContainer = styled.div`
   justify-content: center;
   align-items: flex-start;
   background-color: #0f0f0f;
+
+  @media only screen and (max-width: 800px) {
+    height: 19rem;
+  }
 `;
 
 export const FooterWrapper = styled.div`
@@ -22,6 +26,13 @@ export const TopWrapper = styled.div`
   display: flex;
   justify-content: space-between;
   border-bottom: 1px solid #292929;
+
+  @media only screen and (max-width: 800px) {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-bottom: 0;
+  }
 `;
 export const BottomWrapper = styled.div`
   display: flex;

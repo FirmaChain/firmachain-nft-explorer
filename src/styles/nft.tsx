@@ -1,12 +1,19 @@
 import styled from 'styled-components';
 
 export const MainContainer = styled.div`
+  width: 100%;
+  height: 100%;
   font-size: 1.6rem;
   padding: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 `;
 
 export const ContentWrapper = styled.div`
   width: 100%;
+  flex: 1;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,6 +25,7 @@ export const ContentWrapper = styled.div`
 
 export const ContentContainer = styled.div`
   width: 100%;
+  flex: 1;
   max-width: ${({ theme }) => theme.sizes.maxWidth};
   display: flex;
   flex-direction: column;

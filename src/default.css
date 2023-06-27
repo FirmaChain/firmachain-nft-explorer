@@ -166,11 +166,13 @@ a:active {
 }
 
 body {
-  min-height: 100vh;
+  margin:0;
 }
 
 body > #root > div {
-  min-height: 100vh;
+  margin:0;
+  padding:0;
+  height:100%;
 }
 
 html {
