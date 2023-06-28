@@ -12,7 +12,7 @@ const routePublic = (path: string, component: React.FC) => ({
 const routes = {
   Home: routePublic('/', Home),
   Gallery: routePublic('/gallery', Gallery),
-  Feeds: routePublic('/feeds', Feeds),
+  Feeds: routePublic('/m/gallery', Feeds),
   Nft: routePublic('/nft/:dappId/:nftId', Nft),
 };
 

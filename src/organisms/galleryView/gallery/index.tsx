@@ -2,7 +2,7 @@ import React, { useCallback, useMemo, useState } from 'react';
 import { GridLoader } from 'react-spinners';
 import ReactCardFlip from 'react-card-flip';
 
-import { useNFTsForGallery, useInterval } from '../hooks';
+import { useInterval } from '../hooks';
 import { convertFromNow, createTextEllipsisForEnd } from '../../../utils/common';
 import { INFTStateProps } from '../index';
 
@@ -30,8 +30,11 @@ interface INFTCardProps {
   open: Array<number>;
 }
 
-const Gallery = () => {
-  const { NFTsGalleryList } = useNFTsForGallery();
+interface IProps {
+  NFTsGalleryList: INFTStateProps[];
+}
+
+const Gallery = ({ NFTsGalleryList }: IProps) => {
   const [openInfo, setOpenInfo] = useState<Array<number>>([0, 1]);
 
   const isNFTInLoading = useMemo(() => {
@@ -109,12 +112,7 @@ const Gallery = () => {
     let secondInfo = open[1];
 
     return (
-      <ReactCardFlip
-        isFlipped={nft.loading}
-        flipDirection={'horizontal'}
-        flipSpeedBackToFront={1}
-        flipSpeedFrontToBack={1}
-      >
+      <ReactCardFlip isFlipped={false} flipDirection={'horizontal'} flipSpeedBackToFront={1} flipSpeedFrontToBack={1}>
         <ImageBox>
           <ImageWrap>
             <NFTNewLabelImage open={nft.isNew} src={theme.urls.newLabel} alt={'New NFT'} />

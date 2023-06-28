@@ -26,9 +26,9 @@ export const HeaderWrapper = styled.div`
 `;
 
 export const LogoImg = styled.div`
-  width: 19.7rem;
+  width: 20.4rem;
   height: 3.8rem;
-  background-image: url('${({ theme }) => theme.urls.nftLogo}');
+  background-image: url('${({ theme }) => theme.urls.galleryLogo}');
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center center;

@@ -1,6 +1,6 @@
 import { useCallback, useState } from 'react';
 
-import { useNFTsForFeatured, useInterval } from '../hooks';
+import { useInterval } from '../hooks';
 import { convertTime, wait } from '../../../utils/common';
 import { INFTStateProps } from '../index';
 
@@ -30,9 +30,11 @@ interface IFeaturedItemProps {
   open: boolean;
 }
 
-const Featured = () => {
-  const { NFTsList } = useNFTsForFeatured();
+interface IProps {
+  NFTsList: INFTStateProps[];
+}
 
+const Featured = ({ NFTsList }: IProps) => {
   const [openFeatured, setOpenFeatured] = useState<Array<boolean>>([true, false]);
   const [featuredIndex, setFeaturedIndex] = useState<number>(-1);
   const [featuredItem, setFeaturedItem] = useState<Array<INFTStateProps>>([]);

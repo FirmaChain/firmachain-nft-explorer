@@ -30,7 +30,7 @@ const urls = {
   newLabel: process.env.PUBLIC_URL + '/images/tag-2.png',
   profileIcon2: process.env.PUBLIC_URL + '/images/ic-profile-fill-24-px.png',
   featuredLabel: process.env.PUBLIC_URL + '/images/img-featured-badge.png',
-  galleryLogo: process.env.PUBLIC_URL + '/images/logo-firma-gallery.png',
+  galleryLogo: process.env.PUBLIC_URL + '/images/firma_gallery_logo.png',
 };
 
 const theme = {

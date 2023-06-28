@@ -4,7 +4,6 @@ export const ContentWrapper = styled.div`
   position: absolute;
   top: 0;
   left: 0;
-  background-color: red;
 
   width: 1920px;
   min-width: 1920px;
