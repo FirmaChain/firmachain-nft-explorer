@@ -190,6 +190,12 @@ export const ChainTypo = styled.div`
   font-size: 1.6rem;
 `;
 
+export const AddressTypo = styled.div`
+  color: #404040;
+  font-size: 1.6rem;
+  cursor: pointer;
+`;
+
 export const NftOptionalInfo = styled.div`
   width: 100%;
   display: flex;
@@ -391,10 +397,10 @@ export const ProfileIconMini = styled.div`
   background-repeat: no-repeat;
 `;
 
-export const AddressTypo = styled.div`
-  height: 2rem;
-  line-height: 2rem;
-`;
+// export const AddressTypo = styled.div`
+//   height: 2rem;
+//   line-height: 2rem;
+// `;
 
 export const DateWrapper = styled.div`
   display: flex;

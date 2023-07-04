@@ -29,7 +29,9 @@ const FeedList = ({ targetNftList }: IProps) => {
       {targetNftList.map((nft, index) => {
         return (
           <FeedItem key={index}>
-            <FeedAuthor>
+            <FeedAuthor
+              onClick={() => window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nft.details.owner}`)}
+            >
               <ProfileIcon></ProfileIcon>
               <AuthorTypo>{createTextEllipsis(nft.details.owner, 10, 10)}</AuthorTypo>
             </FeedAuthor>

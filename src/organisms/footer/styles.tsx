@@ -44,7 +44,10 @@ export const BottomWrapper = styled.div`
 export const Logo = styled.div`
   width: 15.7rem;
   height: 3.8rem;
-  background-image: url('${({ theme }) => theme.urls.footerNftLogo}');
+  background-image: url('${({ theme }) => theme.urls.nftLogo}');
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.8;
   margin: 4rem 0;
 `;
 

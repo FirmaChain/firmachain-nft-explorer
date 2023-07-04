@@ -43,21 +43,27 @@ const NftCardList = ({ targetNftList }: IProps) => {
             return <NftCardPlaceholder key={index} />;
           } else {
             return (
-              <NftCardItem key={index} onClick={() => onClickNft(targetNft)}>
-                <NftImage src={targetNft.details.imageURI} />
+              <NftCardItem key={index}>
+                <NftImage src={targetNft.details.imageURI} onClick={() => onClickNft(targetNft)} />
                 <NftInfoWrapper>
-                  <TopWrapper>
+                  <TopWrapper onClick={() => onClickNft(targetNft)}>
                     <NftId>#{targetNft.nftId}</NftId>
                     <Timestamp>
                       {targetNft.details.createdAt ? convertFromNow(targetNft.details.createdAt) : <LoadingIcon />}
                     </Timestamp>
                   </TopWrapper>
-                  <MiddleWrapper>
+                  <MiddleWrapper onClick={() => onClickNft(targetNft)}>
                     <NftName>{targetNft.details.name}</NftName>
                   </MiddleWrapper>
                   <BottomWrapper>
                     <LabelTypo>Owner</LabelTypo>
-                    <ValueTypo>{createTextEllipsis(targetNft.details.owner, 5, 4)}</ValueTypo>
+                    <ValueTypo
+                      onClick={() =>
+                        window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${targetNft.details.owner}`)
+                      }
+                    >
+                      {createTextEllipsis(targetNft.details.owner, 5, 4)}
+                    </ValueTypo>
                   </BottomWrapper>
                 </NftInfoWrapper>
               </NftCardItem>

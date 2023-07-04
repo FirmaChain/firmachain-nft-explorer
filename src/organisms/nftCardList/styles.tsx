@@ -26,7 +26,6 @@ export const NftCardItem = styled.div`
   display: flex;
   flex-direction: column;
   gap: 2rem;
-  cursor: pointer;
   @media only screen and (max-width: 650px) {
     width: calc(50% - 1.5rem);
   }
@@ -34,6 +33,7 @@ export const NftCardItem = styled.div`
 
 export const NftImage = styled.img`
   width: 28.4rem;
+  cursor: pointer;
   border-radius: 1rem;
   @media only screen and (max-width: 650px) {
     width: calc(100%);
@@ -50,6 +50,7 @@ export const TopWrapper = styled.div`
   width: 100%;
   display: flex;
   justify-content: space-between;
+  cursor: pointer;
 `;
 
 export const NftId = styled.div`
@@ -76,6 +77,7 @@ export const Timestamp = styled.div`
 export const MiddleWrapper = styled.div`
   width: 100%;
   display: flex;
+  cursor: pointer;
   border-bottom: 1px solid #efefef;
   padding: 1.5rem 0;
 `;
@@ -100,6 +102,7 @@ export const LabelTypo = styled.div`
 export const ValueTypo = styled.div`
   font-size: 1.6rem;
   color: #0f0f0f;
+  cursor: pointer;
 `;
 
 export const LoadingIcon = styled.div`

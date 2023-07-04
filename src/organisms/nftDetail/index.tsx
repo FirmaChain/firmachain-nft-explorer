@@ -156,7 +156,13 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                   {nftData?.details?.createdBy ? (
                     <>
                       <ProfileIcon />
-                      <ChainTypo>{ellipsisAddressFixed(nftData?.details?.createdBy, 10)}</ChainTypo>
+                      <AddressTypo
+                        onClick={() =>
+                          window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData?.details?.createdBy}`)
+                        }
+                      >
+                        {ellipsisAddressFixed(nftData?.details?.createdBy, 10)}
+                      </AddressTypo>
                     </>
                   ) : (
                     <LoadingIcon />
@@ -168,7 +174,13 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                 <ChainInfoLabel>Owned By</ChainInfoLabel>
                 <ChainInfoValue>
                   <ProfileIcon />
-                  <ChainTypo>{ellipsisAddressFixed(nftData?.details?.owner, 10)}</ChainTypo>
+                  <AddressTypo
+                    onClick={() =>
+                      window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData?.details?.owner}`)
+                    }
+                  >
+                    {ellipsisAddressFixed(nftData?.details?.owner, 10)}
+                  </AddressTypo>
                 </ChainInfoValue>
               </ChainInfoItem>
             </ChainInfoList>
@@ -195,14 +207,18 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                     <HistoryTypeTypo>Created</HistoryTypeTypo>
                   </BodyItem>
                   <BodyItem>
-                    <AddressWrapper>
-                      <AddressTypo>-</AddressTypo>
-                    </AddressWrapper>
+                    <AddressWrapper>{/* <AddressTypo>-</AddressTypo> */}</AddressWrapper>
                   </BodyItem>
                   <BodyItem>
                     <AddressWrapper>
                       <ProfileIconMini />
-                      <AddressTypo>{ellipsisAddress(nftData.details?.createdBy)}</AddressTypo>
+                      <AddressTypo
+                        onClick={() =>
+                          window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData.details?.createdBy}`)
+                        }
+                      >
+                        {ellipsisAddress(nftData.details?.createdBy)}
+                      </AddressTypo>
                     </AddressWrapper>
                   </BodyItem>
                   <BodyItem>

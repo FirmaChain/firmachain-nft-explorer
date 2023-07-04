@@ -24,6 +24,7 @@ export const FeedAuthor = styled.div`
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  cursor: pointer;
 
   @media only screen and (max-width: 50rem) {
     padding: 1rem 1rem;
