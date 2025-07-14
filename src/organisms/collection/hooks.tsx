@@ -89,14 +89,36 @@ const getNftIdByCollection = async (): Promise<ICollectionData> => {
       }
     }
 
+    if (COLLECTION_LIST[i].dappId === '25578bc0-04eb-4df2-9d0b-8f367d701385') {
+      const response = await axios.get(COLLECTION_LIST[i].api!);
+      const nftIdList = response.data.nftIdList;
+      for (let j = 0; j < nftIdList.length; j++) {
+        if (nftIdList[j] === '') continue;
+
+        const dappId = COLLECTION_LIST[i].dappId;
+        const nftId = nftIdList[j].nftId;
+        const transactionHash = nftIdList[j].transactionHash;
+        const createdBy = nftIdList[j].createdBy;
+        const createdAt = nftIdList[j].createdAt;
+
+        collectionNft.push({
+          nftId,
+          dappId,
+          transactionHash,
+          createdBy,
+          createdAt,
+        });
+      }
+    }
+
     collectionNft.sort((a: any, b: any) => b.nftId - a.nftId);
 
     nftCollection[COLLECTION_LIST[i].dappId] = collectionNft;
   }
 
-  nftCollection[COLLECTION_LIST[0].dappId] = nftCollection[COLLECTION_LIST[1].dappId].concat(
-    nftCollection[COLLECTION_LIST[2].dappId]
-  );
+  nftCollection[COLLECTION_LIST[0].dappId] = nftCollection[COLLECTION_LIST[1].dappId]
+    .concat(nftCollection[COLLECTION_LIST[2].dappId])
+    .concat(nftCollection[COLLECTION_LIST[3].dappId]);
 
   return nftCollection;
 };
@@ -183,27 +205,32 @@ export const useLatestNftInfo = ({
   const getTargetArray = (nftByCollection: ICollectionData): INftData[] => {
     const targetCollection = nftByCollection[currentCollection];
     const startPosition = currentPage * term;
-    const endPosition = targetCollection.length < startPosition + term ? targetCollection.length : startPosition + term;
 
-    let targetArray = [];
-    for (let i = startPosition; i < endPosition; i++) {
-      targetArray.push({
-        nftId: targetCollection[i].nftId,
-        dappId: nftByCollection[currentCollection][i].dappId,
-        metadata: null,
-        details: {
-          name: '',
-          description: '',
-          imageURI: '',
-          owner: '',
-          transactionHash: nftByCollection[currentCollection][i].transactionHash,
-          createdBy: nftByCollection[currentCollection][i].createdBy,
-          createdAt: nftByCollection[currentCollection][i].createdAt,
-        },
-      });
+    if (targetCollection) {
+      const endPosition = targetCollection.length < startPosition + term ? targetCollection.length : startPosition + term;
+
+      let targetArray = [];
+      for (let i = startPosition; i < endPosition; i++) {
+        targetArray.push({
+          nftId: targetCollection[i].nftId,
+          dappId: nftByCollection[currentCollection][i].dappId,
+          metadata: null,
+          details: {
+            name: '',
+            description: '',
+            imageURI: '',
+            owner: '',
+            transactionHash: nftByCollection[currentCollection][i].transactionHash,
+            createdBy: nftByCollection[currentCollection][i].createdBy,
+            createdAt: nftByCollection[currentCollection][i].createdAt,
+          },
+        });
+      }
+
+      return targetArray;
+    } else {
+      return [];
     }
-
-    return targetArray;
   };
 
   const getSearchArray = (nftByCollection: INft[]): INftData[] => {
@@ -231,25 +258,29 @@ export const useLatestNftInfo = ({
   };
 
   useEffect(() => {
-    getNftIdByCollection().then((result) => {
-      setNftByCollection(result);
+    if (currentCollection !== '') {
+      getNftIdByCollection().then((result) => {
+        setNftByCollection(result);
 
-      const targetArray = getTargetArray(result);
+        const targetArray = getTargetArray(result);
 
-      setTargetNftList(targetArray);
-      getNftDetail(targetArray)
-        .then(() => {})
-        .catch((error) => console.log(error));
-    });
+        setTargetNftList(targetArray);
+        getNftDetail(targetArray)
+          .then(() => {})
+          .catch((error) => console.log(error));
+      });
+    }
   }, [currentCollection]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    const targetArray = getTargetArray(nftByCollection);
-    setTargetNftList((prevState) => prevState.concat(targetArray));
+    if (currentPage > 0) {
+      const targetArray = getTargetArray(nftByCollection);
+      setTargetNftList((prevState) => prevState.concat(targetArray));
 
-    getNftDetail(targetNftList.concat(targetArray))
-      .then(() => {})
-      .catch((error) => console.log(error));
+      getNftDetail(targetNftList.concat(targetArray))
+        .then(() => {})
+        .catch((error) => console.log(error));
+    }
   }, [currentPage]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {

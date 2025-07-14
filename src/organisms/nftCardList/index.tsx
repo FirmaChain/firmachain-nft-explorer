@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 import { convertFromNow, createTextEllipsis } from '../../utils/common';
@@ -23,6 +23,32 @@ import {
   LoadingIcon,
 } from './styles';
 
+const NFTImageBox = ({ src, onClick }: { src: string; onClick: () => void }) => {
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    setLoaded(false);
+
+    const image = new Image();
+
+    image.src = src;
+
+    image.onload = () => {
+      setLoaded(true);
+    };
+
+    image.onerror = () => {
+      console.error('Failed to get NFT image', src);
+    };
+  }, [src]);
+
+  return (
+    <div style={{ width: '28.4rem', height: '28.4rem', background: src ? 'transparent' : '#EFEFEF', transition: 'background-color 500ms ease-in', borderRadius: '10px' }}>
+      {loaded && <NftImage src={src} onClick={onClick} />}
+    </div>
+  );
+};
+
 interface IProps {
   targetNftList: INftData[];
 }
@@ -44,24 +70,19 @@ const NftCardList = ({ targetNftList }: IProps) => {
           } else {
             return (
               <NftCardItem key={index}>
-                <NftImage src={targetNft.details.imageURI} onClick={() => onClickNft(targetNft)} />
+                <NFTImageBox src={targetNft.details.imageURI} onClick={() => onClickNft(targetNft)} />
+                {/* <NftImage src={targetNft.details.imageURI} onClick={() => onClickNft(targetNft)} /> */}
                 <NftInfoWrapper>
                   <TopWrapper onClick={() => onClickNft(targetNft)}>
                     <NftId>#{targetNft.nftId}</NftId>
-                    <Timestamp>
-                      {targetNft.details.createdAt ? convertFromNow(targetNft.details.createdAt) : <LoadingIcon />}
-                    </Timestamp>
+                    <Timestamp>{targetNft.details.createdAt ? convertFromNow(targetNft.details.createdAt) : <LoadingIcon />}</Timestamp>
                   </TopWrapper>
                   <MiddleWrapper onClick={() => onClickNft(targetNft)}>
                     <NftName>{targetNft.details.name}</NftName>
                   </MiddleWrapper>
                   <BottomWrapper>
                     <LabelTypo>Owner</LabelTypo>
-                    <ValueTypo
-                      onClick={() =>
-                        window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${targetNft.details.owner}`)
-                      }
-                    >
+                    <ValueTypo onClick={() => window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${targetNft.details.owner}`)}>
                       {createTextEllipsis(targetNft.details.owner, 5, 4)}
                     </ValueTypo>
                   </BottomWrapper>

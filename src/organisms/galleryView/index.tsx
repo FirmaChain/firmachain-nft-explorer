@@ -40,7 +40,7 @@ const GalleryMode = () => {
           </OuterBox>
           <OuterBox style={{ width: 'calc(100vw)' }}>
             <Gallery NFTsGalleryList={NFTsGalleryList} />
-          </OuterBox>{' '}
+          </OuterBox>
         </>
       )}
     </Container>

@@ -186,25 +186,41 @@ const getNftIdByCollection = async (currentCollection: string | undefined): Prom
       }
     }
 
+    if (COLLECTION_LIST[i].dappId === '25578bc0-04eb-4df2-9d0b-8f367d701385') {
+      const response = await axios.get(COLLECTION_LIST[i].api!);
+      const nftIdList = response.data.nftIdList;
+      for (let j = 0; j < nftIdList.length; j++) {
+        if (nftIdList[j] === '') continue;
+
+        const dappId = COLLECTION_LIST[i].dappId;
+        const nftId = nftIdList[j].nftId;
+        const transactionHash = nftIdList[j].transactionHash;
+        const createdBy = nftIdList[j].createdBy;
+        const createdAt = nftIdList[j].createdAt;
+
+        collectionNft.push({
+          nftId,
+          dappId,
+          transactionHash,
+          createdBy,
+          createdAt,
+        });
+      }
+    }
+
     collectionNft.sort((a: any, b: any) => b.nftId - a.nftId);
 
     nftCollection[COLLECTION_LIST[i].dappId] = collectionNft;
   }
 
-  nftCollection[COLLECTION_LIST[0].dappId] = nftCollection[COLLECTION_LIST[1].dappId].concat(
-    nftCollection[COLLECTION_LIST[2].dappId]
-  );
+  nftCollection[COLLECTION_LIST[0].dappId] = nftCollection[COLLECTION_LIST[1].dappId]
+    .concat(nftCollection[COLLECTION_LIST[2].dappId])
+    .concat(nftCollection[COLLECTION_LIST[3].dappId]);
 
   return nftCollection[currentCollection];
 };
 
-export const useLatestNftInfoByCollection = ({
-  currentCollection,
-  term = 16,
-}: {
-  currentCollection: string | undefined;
-  term?: number;
-}) => {
+export const useLatestNftInfoByCollection = ({ currentCollection, term = 16 }: { currentCollection: string | undefined; term?: number }) => {
   const [targetNftList, setTargetNftList] = useState<INftData[]>([]);
 
   const getNftDetail = async (targetArray: INftData[]): Promise<void> => {
@@ -234,8 +250,7 @@ export const useLatestNftInfoByCollection = ({
 
     if (targetCollection) {
       const startPosition = 0 * term;
-      const endPosition =
-        targetCollection.length < startPosition + term ? targetCollection.length : startPosition + term;
+      const endPosition = targetCollection.length < startPosition + term ? targetCollection.length : startPosition + term;
 
       let targetArray = [];
       for (let i = startPosition; i < endPosition; i++) {

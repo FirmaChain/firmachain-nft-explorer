@@ -33,8 +33,11 @@ export const NftCardItem = styled.div`
 
 export const NftImage = styled.img`
   width: 28.4rem;
+  height: 28.4rem;
   cursor: pointer;
   border-radius: 1rem;
+  background-color: #ddd;
+
   @media only screen and (max-width: 650px) {
     width: calc(100%);
   }

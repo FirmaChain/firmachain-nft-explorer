@@ -26,6 +26,7 @@ export const TitleTypo = styled.div`
 export const CollectionTabList = styled.div`
   width: 100%;
   display: flex;
+  flex-wrap: wrap;
   align-items: center;
   border-bottom: 0.1rem solid #ddd;
 `;
@@ -38,6 +39,7 @@ export const CollectionTab = styled.div<{ isActive: boolean }>`
   border-bottom: 0.3rem solid ${(props) => (props.isActive ? '#004df5' : '#00000000')};
   cursor: pointer;
   @media only screen and (max-width: 650px) {
+    flex: 1 0 calc(50% - 6rem);
     font-size: 1.6rem;
     padding: 1rem 2rem;
   }

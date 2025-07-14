@@ -1,19 +1,7 @@
 import React from 'react';
 import { useMediaQuery } from 'react-responsive';
 
-import {
-  FooterContainer,
-  FooterWrapper,
-  TopWrapper,
-  BottomWrapper,
-  Logo,
-  IconLinkWrapper,
-  IconLink,
-  TextLinkWrapper,
-  TextLink,
-  Divider,
-  AddressTypo,
-} from './styles';
+import { FooterContainer, FooterWrapper, TopWrapper, BottomWrapper, Logo, IconLinkWrapper, IconLink, TextLinkWrapper, TextLink, Divider, AddressTypo, MailTo } from './styles';
 
 const Footer = () => {
   const isSmall = useMediaQuery({ query: '(max-width: 1200px)' });
@@ -35,7 +23,7 @@ const Footer = () => {
         ) : (
           <BottomWrapper>
             <TextLinkWrapper>
-              <TextLink>info@firmachain.org</TextLink>
+              <MailTo href="mailto:info@firmachain.org">info@firmachain.org</MailTo>
               <Divider />
               <TextLink>Privacy Policy</TextLink>
             </TextLinkWrapper>

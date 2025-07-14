@@ -6,13 +6,7 @@ import { useSnackbar } from 'notistack';
 import { LoadingIcon } from '../nftCardList/styles';
 import { useGetNftData, useLatestNftInfoByCollection } from './hook';
 import { INftData } from '../collection/hooks';
-import {
-  convertDateFormat,
-  convertFromNow,
-  copyToClipboard,
-  createTextEllipsis,
-  getCollectionName,
-} from '../../utils/common';
+import { convertDateFormat, convertFromNow, copyToClipboard, createTextEllipsis, getCollectionName } from '../../utils/common';
 
 import {
   ContentWrapper,
@@ -69,6 +63,7 @@ import {
   DateTypo,
   HistoryTypeTypo,
 } from './styles';
+import { FIRMACHAIN_CONFIG } from '../../config';
 
 const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: string | undefined }) => {
   const { enqueueSnackbar } = useSnackbar();
@@ -146,7 +141,7 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                 <ChainInfoLabel>Chain</ChainInfoLabel>
                 <ChainInfoValue>
                   <ChainIcon />
-                  <ChainTypo>FIRMACHAIN (Colosseum-1)</ChainTypo>
+                  <ChainTypo>FIRMACHAIN ({FIRMACHAIN_CONFIG.chainID})</ChainTypo>
                 </ChainInfoValue>
               </ChainInfoItem>
 
@@ -156,11 +151,7 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                   {nftData?.details?.createdBy ? (
                     <>
                       <ProfileIcon />
-                      <AddressTypo
-                        onClick={() =>
-                          window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData?.details?.createdBy}`)
-                        }
-                      >
+                      <AddressTypo onClick={() => window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData?.details?.createdBy}`)}>
                         {ellipsisAddressFixed(nftData?.details?.createdBy, 10)}
                       </AddressTypo>
                     </>
@@ -174,11 +165,7 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                 <ChainInfoLabel>Owned By</ChainInfoLabel>
                 <ChainInfoValue>
                   <ProfileIcon />
-                  <AddressTypo
-                    onClick={() =>
-                      window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData?.details?.owner}`)
-                    }
-                  >
+                  <AddressTypo onClick={() => window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData?.details?.owner}`)}>
                     {ellipsisAddressFixed(nftData?.details?.owner, 10)}
                   </AddressTypo>
                 </ChainInfoValue>
@@ -212,11 +199,7 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                   <BodyItem>
                     <AddressWrapper>
                       <ProfileIconMini />
-                      <AddressTypo
-                        onClick={() =>
-                          window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData.details?.createdBy}`)
-                        }
-                      >
+                      <AddressTypo onClick={() => window.open(`${process.env.REACT_APP_EXPLORER_HOST}/accounts/${nftData.details?.createdBy}`)}>
                         {ellipsisAddress(nftData.details?.createdBy)}
                       </AddressTypo>
                     </AddressWrapper>
@@ -224,13 +207,7 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
                   <BodyItem>
                     <DateWrapper>
                       <DateTypo>{convertDateFormat(nftData.details?.createdAt)}</DateTypo>
-                      <TxLinkIcon
-                        onClick={() =>
-                          window.open(
-                            `${process.env.REACT_APP_EXPLORER_HOST}/transactions/${nftData.details?.transactionHash}`
-                          )
-                        }
-                      />
+                      <TxLinkIcon onClick={() => window.open(`${process.env.REACT_APP_EXPLORER_HOST}/transactions/${nftData.details?.transactionHash}`)} />
                     </DateWrapper>
                   </BodyItem>
                 </BodyList>
@@ -299,23 +276,12 @@ const NftDetail = ({ dappId, nftId }: { dappId: string | undefined; nftId: strin
               >
                 {targetNftList.map((targetNft, index) => {
                   return (
-                    <NftCardItem
-                      key={index}
-                      onMouseDown={handleMouseDown}
-                      onMouseMove={handleMouseMove}
-                      onMouseUp={() => handleMouseUp(targetNft)}
-                    >
+                    <NftCardItem key={index} onMouseDown={handleMouseDown} onMouseMove={handleMouseMove} onMouseUp={() => handleMouseUp(targetNft)}>
                       <NftCardImage src={targetNft.details?.imageURI} />
                       <NftInfoWrapper>
                         <NftCardTopWrapper>
                           <NftId>#{targetNft.nftId}</NftId>
-                          <NftCardTimestamp>
-                            {targetNft.details?.createdAt ? (
-                              convertFromNow(targetNft.details.createdAt)
-                            ) : (
-                              <LoadingIcon />
-                            )}
-                          </NftCardTimestamp>
+                          <NftCardTimestamp>{targetNft.details?.createdAt ? convertFromNow(targetNft.details.createdAt) : <LoadingIcon />}</NftCardTimestamp>
                         </NftCardTopWrapper>
                         <MiddleWrapper>
                           <NftCardNftName>{targetNft.details?.name}</NftCardNftName>

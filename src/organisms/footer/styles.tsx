@@ -78,6 +78,8 @@ export const TextLink = styled.div`
   cursor: pointer;
 `;
 
+export const MailTo = styled.a``;
+
 export const Divider = styled.div`
   width: 1px;
   height: 85%;

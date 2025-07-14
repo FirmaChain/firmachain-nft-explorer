@@ -14,11 +14,10 @@ const routes = {
   Gallery: routePublic('/gallery', Gallery),
   Feeds: routePublic('/m/gallery', Feeds),
   Nft: routePublic('/nft/:dappId/:nftId', Nft),
+  Collection: routePublic('/collection/:collection', Home),
 };
 
 const PrivateRoute = ({ children }: any) => {
-  // TODO : AUTH CHECK AND REDIRECT
-  // return <Navigate to={redirectTo} />;
   return children;
 };
 
