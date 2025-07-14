@@ -1,8 +1,8 @@
 # dependencies
 /node_modules
-/src/config.ts
+/src/config.*
 /.pnp
-.pnp.js
+.pnp.*
 
 # testing
 /coverage

@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "./",
   "scripts": {
-    "start": "react-app-env --env-file=.env start",
-    "build": "cross-env GENERATE_SOURCEMAP=false react-app-env --env-file=.env build",
+    "start": "env-cmd -f .env craco start",
+    "build": "GENERATE_SOURCEMAP=false env-cmd -f .env craco build",
     "deploy-mainnet": "aws s3 sync ./build s3://deploy-ecosystem/mainnet/nft-explorer --profile=firmachain-deploy --delete",
     "invalidate-mainnet": "aws cloudfront create-invalidation --profile=firmachain-deploy --distribution-id E3FQGPV7MAF5N8 --paths '/*'"
   },
@@ -14,10 +14,8 @@
     "@apollo/react-hooks": "^4.0.0",
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",
-    "@firmachain/firma-js": "^0.2.44",
-    "@types/react-addons-update": "^0.14.21",
+    "@firmachain/firma-js": "^0.3.3",
     "axios": "^1.1.3",
-    "crypto-js": "^4.1.1",
     "graphql": "^16.6.0",
     "moment": "^2.29.4",
     "notistack": "^2.0.8",
@@ -29,15 +27,16 @@
     "react-query": "^3.39.3",
     "react-responsive": "^9.0.2",
     "react-router-dom": "^6.4.2",
-    "react-scripts": "4.0.3",
+    "react-scripts": "^5.0.1",
     "react-slick": "^0.29.0",
     "react-spinners": "^0.13.8",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.3.6",
-    "typescript": "^4.8.4",
     "uuid": "^9.0.0"
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@craco/craco": "^7.1.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
@@ -48,7 +47,16 @@
     "@types/react-slick": "^0.23.10",
     "@types/styled-components": "^5.1.26",
     "@types/uuid": "^9.0.2",
-    "react-app-env": "^1.2.3"
+    "browserify-fs": "^1.0.0",
+    "crypto-browserify": "^3.12.0",
+    "crypto-js": "^4.1.1",
+    "env-cmd": "^10.1.0",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "typescript": "^4.8.4",
+    "util": "^0.12.5",
+    "vm-browserify": "^1.1.2"
   },
   "eslintConfig": {
     "extends": [
