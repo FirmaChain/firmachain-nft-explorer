@@ -15,7 +15,7 @@ const Footer = () => {
             <IconLink src={'medium'} onClick={() => window.open('https://medium.com/firmachain')} />
             <IconLink src={'twitter'} onClick={() => window.open('https://twitter.com/firmachain')} />
             <IconLink src={'reddit'} onClick={() => window.open('https://www.reddit.com/r/FIRMACHAIN_network/')} />
-            <IconLink src={'telegram'} onClick={() => window.open('https://t.me/firmachain_global')} />
+            <IconLink src={'telegram'} onClick={() => window.open('https://t.me/firmachain_announcement')} />
           </IconLinkWrapper>
         </TopWrapper>
         {isSmall ? (
